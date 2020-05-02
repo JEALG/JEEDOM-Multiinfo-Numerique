@@ -1,0 +1,214 @@
+<div style="min-width:80px; mini-height:90px;" class="cmd tooltips cmd-widget cursor container-fluid #history#" data-type="info" data-subtype="numeric" data-cmd_id="#id#" data-cmd_uid="#uid#">
+    <!-- Info Widget
+        Basé sur les widget de 	    :   
+        Widget pour le Core         : V4
+        Mise à jour	                : JAG 20200502 => Ajout Version Core
+    -->
+    <div class="title #hide_name#">
+        <div class="cmdName" style="#hideCmdName#">#name_display#</div>
+    </div>
+    <div style="text-align:center;">
+        <div id="multiinfonumeDivIMG#id#" class="multiinfonume_div_img">
+            <span id="multiinfonumeIMG#id#" class="iconCmd#id# multiinfonume_img"></span>
+        </div>
+        <div style="display:inline-block;">
+            <div class="value">
+                <span class="value#id# timeCmd label label-default value"></span>
+            </div>
+            <!-- Historique -->
+            <div class="cmdStats #hide_history#" style="#displayHistory# font-size : 10px;text-align: left;">
+                <span title="Min" style="float:left;">Min : #minHistoryValue# #unite#</span><br />
+                <span title="Moy" style="float:left;">Moy : #averageHistoryValue# #unite#</span><br />
+                <span title="Max" style="float:left;">Max : #maxHistoryValue# #unite#</span><br />
+                <i class="#tendance#"></i>
+            </div>
+        </div>
+    </div>
+    <script>
+        jeedom.cmd.update['#id#'] = function(_options) {
+            // Options de personnalisation avec valeur par defaut
+            // Modèle
+            var template = (is_numeric('#modele#')) ? parseFloat('#modele#') : 2;
+            // Paramétrage niveau en fonction du template
+            if (template == 1) {
+                // Template 1 => rose des vents
+                // Paramètrage du logo
+                var srcImglogo = ('#logo#' != '#' + 'logo#') ? "#logo#" : "ve_ro_vent_";
+                var srcImglogo_T = ('#logo_type#' != '#' + 'logo_type#') ? "#logo_type#" : "png";
+                // Dossier
+                var srcFolder = ('#dossier#' != '#' + 'dossier#') ? "#dossier#" : "vent";
+                // Niveau
+                var nb_level = (is_numeric('#nb_level#')) ? parseFloat('#nb_level#') : 8;
+                var level_1 = (is_numeric('#level_1#')) ? parseFloat('#level_1#') : 0;
+                var level_2 = (is_numeric('#level_2#')) ? parseFloat('#level_2#') : 11.25;
+                var level_3 = (is_numeric('#level_3#')) ? parseFloat('#level_3#') : 33.75;
+                var level_4 = (is_numeric('#level_4#')) ? parseFloat('#level_4#') : 56.25;
+                var level_5 = (is_numeric('#level_5#')) ? parseFloat('#level_5#') : 78.75;
+                var level_6 = (is_numeric('#level_6#')) ? parseFloat('#level_6#') : 101.25;
+                var level_7 = (is_numeric('#level_7#')) ? parseFloat('#level_7#') : 123.75;
+                var level_8 = (is_numeric('#level_8#')) ? parseFloat('#level_8#') : 146.25;
+                var level_9 = (is_numeric('#level_9#')) ? parseFloat('#level_9#') : 168.75;
+                var level_10 = (is_numeric('#level_10#')) ? parseFloat('#level_10#') : 191.25;
+                var level_11 = (is_numeric('#level_11#')) ? parseFloat('#level_11#') : 213.75;
+                var level_12 = (is_numeric('#level_12#')) ? parseFloat('#level_12#') : 236.25;
+                var level_13 = (is_numeric('#level_13#')) ? parseFloat('#level_13#') : 258.75;
+                var level_14 = (is_numeric('#level_14#')) ? parseFloat('#level_14#') : 281.25;
+                var level_15 = (is_numeric('#level_15#')) ? parseFloat('#level_15#') : 303.75;
+                var level_16 = (is_numeric('#level_16#')) ? parseFloat('#level_16#') : 326.25;
+                var level_17 = (is_numeric('#level_17#')) ? parseFloat('#level_17#') : 348.75;
+                var level_18 = (is_numeric('#level_18#')) ? parseFloat('#level_18#') : 360;
+            } else if (template == 2) {
+                // Template 1 => rose des vents
+                // Paramètrage du logo
+                var srcImglogo = ('#logo#' != '#' + 'logo#') ? "#logo#" : "ve_manche_";
+                var srcImglogo_T = ('#logo_type#' != '#' + 'logo_type#') ? "#logo_type#" : "png";
+                // Dossier
+                var srcFolder = ('#dossier#' != '#' + 'dossier#') ? "#dossier#" : "vent";
+                // Niveau
+                var nb_level = (is_numeric('#nb_level#')) ? parseFloat('#nb_level#') : 5;
+                var level_1 = (is_numeric('#level_1#')) ? parseFloat('#level_1#') : 0;
+                var level_2 = (is_numeric('#level_2#')) ? parseFloat('#level_2#') : 9;
+                var level_3 = (is_numeric('#level_3#')) ? parseFloat('#level_3#') : 36;
+                var level_4 = (is_numeric('#level_4#')) ? parseFloat('#level_4#') : 46;
+                var level_4 = (is_numeric('#level_4#')) ? parseFloat('#level_4#') : 350;
+            };
+
+            /*               if (State >= 0 && State <= 9) {
+                        srcPictureID 	= "ve_manche_0";
+                    } else if (State > 9 && State <= 36) {
+                        srcPictureID 	= "ve_manche_45";
+                    } else if (State > 36 && State <= 46) {
+                        srcPictureID 	= "ve_manche_90";
+                    } else if (State > 46) {
+                        srcPictureID 	= "ve_manche_over"; */
+
+            // Paramètrage du logo ERREUR
+            var srcImglogoER = ('#logo_error#' != '#' + 'logo_error#') ? "#logo_error#" : "er_oups1";
+            var srcImglogoER_T = ('#logo_error_type#' != '#' + 'logo_error_type#') ? "#logo_error_type#" : "png";
+            // Paramètre de la position de la légende
+            var srcImgleg_pos = ('#leg_pos#' != '#' + 'leg_pos#') ? "#leg_pos#" : "right";
+            // Paramètre "sizehw" : à déclarer en pixels - 92 maxi
+            var srcImgHeight = (is_numeric('#sizeh#')) ? parseFloat('#sizeh#') : 80;
+            var srcImgWidth = (is_numeric('#sizew#')) ? parseFloat('#sizew#') : 83;
+            var srcImgSize = 'height=' + srcImgHeight + 'px width=' + srcImgWidth + 'px';
+            // Paramétrage des images
+            var srcImgURL = "plugins/widget/core/template/dashboard/cmd.action.other.Multi-action-Defaut/" + srcFolder + '/';
+            var srcImgURL_ER = 'plugins/widget/core/template/dashboard/cmd.action.other.Multi-action-Defaut/error/';
+
+            // Update
+            var srcPictureID;
+            var State = parseFloat(_options.display_value);
+            if (State >= level_1 && State <= level_2) {
+                srcPictureID = "n";
+                srcPictureIDn = 0;
+            } else if ((State > level_2 && State <= level_3) && nb_level >= 2) {
+                srcPictureID = "nne";
+                srcPictureIDn = 1;
+            } else if ((State > level_3 && State <= level_4) && nb_level >= 3) {
+                srcPictureID = "ne";
+                srcPictureIDn = 2;
+            } else if ((State > level_4 && State <= level_5) && nb_level >= 4) {
+                srcPictureID = "ene";
+                srcPictureIDn = 3;
+            } else if ((State > level_5 && State <= level_6) && nb_level >= 5) {
+                srcPictureID = "e";
+                srcPictureIDn = 4;
+            } else if ((State > level_6 && State <= level_7) && nb_level >= 6) {
+                srcPictureID = "ese";
+                srcPictureIDn = 5;
+            } else if ((State > level_7 && State <= level_8) && nb_level >= 7) {
+                srcPictureID = "se";
+                srcPictureIDn = 6;
+            } else if ((State > level_8 && State <= level_9) && nb_level >= 8) {
+                srcPictureID = "sse";
+                srcPictureIDn = 7;
+            } else if ((State > level_9 && State <= level_10) && nb_level >= 9) {
+                srcPictureID = "s";
+                srcPictureIDn = 8;
+            } else if ((State > level_10 && State <= level_11) && nb_level >= 10) {
+                srcPictureID = "sso";
+                srcPictureIDn = 9;
+            } else if ((State > level_11 && State <= level_12) && nb_level >= 11) {
+                srcPictureID = "so";
+                srcPictureIDn = 10;
+            } else if ((State > level_12 && State <= level_13) && nb_level >= 12) {
+                srcPictureID = "oso";
+                srcPictureIDn = 11;
+            } else if ((State > level_13 && State <= level_14) && nb_level >= 13) {
+                srcPictureID = "o";
+                srcPictureIDn = 12;
+            } else if ((State > level_14 && State <= level_15) && nb_level >= 14) {
+                srcPictureID = "ono";
+                srcPictureIDn = 13;
+            } else if ((State > level_15 && State <= level_16) && nb_level >= 15) {
+                srcPictureID = "no";
+                srcPictureIDn = 14;
+            } else if ((State > level_16 && State <= level_17) && nb_level >= 16) {
+                srcPictureID = "nno";
+                srcPictureIDn = 15;
+            } else if ((State > level_17 && State <= level_18) && nb_level >= 17) {
+                srcPictureID = "16";
+                srcPictureID = "16";
+                srcPictureIDn = 0;
+            } else {
+                srcPictureID = "error";
+                srcImgURL = srcImgURL_ER;
+            }
+
+            // Update IMG + gestion erreur
+            if (srcPictureID == "error") {
+                $('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').html('<img src="' + srcImgURL + srcImglogoER + '.' + srcImglogoER_T + '" style="height:80px;width:80px;">');
+            } else {
+                $('.cmd[data-cmd_uid=#uid#] .iconCmd#id#').empty().append('<img src="' + srcImgURL + srcImglogo + srcPictureID + '.' + srcImglogo_T + '" ' + srcImgSize + '>');
+            }
+            $('.cmd[data-cmd_uid=#uid#] .value#id#').empty().append(_options.display_value + ' ' + '#unite#');
+            $('.cmd[data-cmd_uid=#uid#]').attr('title', 'Valeur du ' + _options.valueDate + ', collectée le ' + _options.collectDate);
+
+            // Paramétrage des affichage
+            // Position image
+            if (srcImgleg_pos == "right") {
+                $("#multiinfonumeDivIMG#id#.multiinfonume_div_img").css("float", "left");
+                $("#multiinfonumeIMG#id#.multiinfonume_img").css("margin-right", "15px");
+            } else if (srcImgleg_pos == "left") {
+                $("#multiinfonumeDivIMG#id#.multiinfonume_div_img").css("float", "right");
+                $("#multiinfonumeIMG#id#.multiinfonume_img").css("margin-left", "15px");
+            } else {
+                //aucune modification nécessaire
+            }
+            // Position Texte
+            if (srcImgleg_pos == "right") {
+                $("#multiinfonumeState#id#.multiinfonume_state").css("text-align", "left");
+            } else if (srcImgleg_pos == "left") {
+                $("#multiinfonumeState#id#.multiinfonume_state").css("text-align", "right");
+            } else if (srcImgleg_pos == "bottom") {
+                //aucune modification nécessaire
+            }
+        }
+        jeedom.cmd.update['#id#']({
+            display_value: '#state#',
+            valueDate: '#valueDate#',
+            collectDate: '#collectDate#',
+            alertLevel: '#alertLevel#'
+        });
+    </script>
+</div>
+<style>
+    span.multiinfonume_img {
+        height: 80px;
+    }
+
+    span.multiinfonume_div_img {
+        margin-left: 5px;
+        position: relative;
+        height: 64px;
+        width: 62px;
+        float: left;
+    }
+
+    span.multiinfonume_state {
+        font-weight: bold;
+        font-size: 1.5em;
+        margin-top: 5px;
+        display: block;
+    }
+</style>
